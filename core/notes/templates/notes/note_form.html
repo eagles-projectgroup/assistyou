@@ -1,0 +1,14 @@
+{% extends "custom_auth/base.html" %}
+
+{% block content %}
+   
+  
+    <h1>{% if note %}Edit Note{% else %}Create Note{% endif %}</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">{% if note %}Update{% else %}Create{% endif %}</button>
+      <button class="but" type="reset" class="secondary">Reset</button>
+    </form>
+    <a href="{% url 'notes:note-list' %}">Back to list</a>
+{% endblock %}

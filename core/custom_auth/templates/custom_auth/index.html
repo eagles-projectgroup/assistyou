@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MY PERSONNAL ASSISTANT</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'custom_auth/style.css' %}" />
+  </head>
+  <body>
+    <main class="main">
+      <nav>
+        {% if user.is_authenticated %}
+        <ul>
+          <li class="hello">Welcome <b>{{ user.username }}!</b></li>
+          <li>
+            <a
+              class="nav-button"
+              href="{% url 'custom_auth:profile' %}"
+              role="button"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a
+              class="nav-button"
+              href="{% url 'custom_auth:logout' %}"
+              role="button"
+              >Logout</a
+            >
+          </li>
+        </ul>
+        {% else %}
+        <ul>
+          <li>
+            <a
+              class="nav-button"
+              href="{% url 'custom_auth:signup' %}"
+              role="button"
+              >Sign Up</a
+            >
+          </li>
+          <li>
+            <a
+              class="nav-button"
+              href="{% url 'custom_auth:login' %}"
+              role="button"
+              >Login</a
+            >
+          </li>
+        </ul>
+        {% endif %}
+      </nav>
+
+      <div
+        class="container-tag"
+        style="margin-bottom: 20px; border-bottom: 2px; padding-left: 30px"
+      ></div>
+      {% if user.is_authenticated %}
+      <li>
+        <a class="nav-button" href="{% url 'addressbook:home' %}" role="button"
+          >ADDRESS BOOK</a
+        >
+      </li>
+      <li>
+        <a class="nav-button" href="{% url 'notes:note-list' %}" role="button"
+          >MY NOTES</a
+        >
+      </li>
+      <li>
+        <a
+          class="nav-button"
+          href="{% url 'custom_auth:profile' %}"
+          role="button"
+          >PROFILE</a
+        >
+      </li>
+      <li>
+        <a class="nav-button" href="{% url 'cloud:file_list' %}" role="button"
+          >FILE LIST</a
+        >
+      </li>
+      {% block content %} {% endblock %} {% else %}
+      <p class="hello">Welcome to personnal assistant</p>
+      <p>To become a part of us:</p>
+      <ul>
+        <li>
+          <a
+            class="nav-button"
+            href="{% url 'custom_auth:signup' %}"
+            role="button"
+            >Sign Up</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav-button"
+            href="{% url 'custom_auth:login' %}"
+            role="button"
+            >Login</a
+          >
+        </li>
+      </ul>
+      {% endif %}
+    </main>
+    <footer>
+      <p>&copy; 2024 My personnal assistant</p>
+    </footer>
+  </body>
+</html>
